@@ -8,22 +8,22 @@ body {
 .content {
 	width: 40%;
 	min-width: 20%;
-	margin:0 auto; 
-	padding-top:8%;
+	margin: 0 auto; 
+	padding-top: 8%;
 }
 
 .TitleGame {
-	font-size:40px;
+	font-size: 40px;
 	text-decoration: overline;
 	text-align: center;
 	padding: 2%;
 }
 
 .content_Main {
-	font-size:60px;
+	font-size: 60px;
 	text-align: center;
 	padding: 10px;
-	margin:0 auto; 
+	margin: 0 auto; 
 	border: 3px solid white;
 	border-radius: 20px;
 	width: 60%;

@@ -1,0 +1,8 @@
+<fest:template xmlns:fest="http://fest.mail.ru"
+    context_name="json">
+    <body>
+          <div class="content-button-backGame">
+              <p><a href="#" class="js-back">Back</a></p>
+          </div>
+  </body>
+</fest:template>

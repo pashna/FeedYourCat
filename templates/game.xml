@@ -1,8 +1,42 @@
 <fest:template xmlns:fest="http://fest.mail.ru"
     context_name="json">
-    <body>
-          <div class="content-button-backGame">
-              <p><a href="#" class="js-back">Back</a></p>
-          </div>
-  </body>
+    <audio src="sound/score.wav" id="score-sound"></audio>
+	<div class="toolbar toolbar_float_left">
+        <p><a href="#" class="toolbar__button">Back</a></p>
+    </div>
+    <div class="content content_width_xl">
+    	<div class="game-screen">
+            <div class="lose-menu" id="lose">
+                <p><div class="lose-menu__text">Your cat is hungry</div></p>
+                <div id="record">
+                    <p><div class="lose-menu__text_xs">Enter Your Name:</div></p>
+                    <p><input class="lose-menu__input" type="text"></input></p>
+                </div>
+                <p><div class="toolbar__button" id="submit_score">Submit Score</div></p>
+                <p><div class="toolbar__button" id="replay-button_lose">New Game</div></p>
+            </div>
+            <div class="win-menu" id="win">
+                <p><div class="win-menu__text">Perfect!...</div></p>
+                <p><div class="win-menu__text_x1">...But your cat wanna eat more!</div></p>
+                <p>
+                    <div>
+                        <img src="img/star.png" class="win-menu__star" id="1_star"/>
+                        <img src="img/star.png" class="win-menu__star" id="2_star"/>
+                        <img src="img/star.png" class="win-menu__star" id="3_star"/>
+                    </div>
+                </p>
+                <p>
+                    <div class="toolbar__button" id="next-level">Next Level</div>
+                    <div class="toolbar__button" id="replay-button_win">Replay</div>
+                </p>
+            </div>
+    		<canvas id="draw" width="800" height="600" class="game-screen__canvas">:( Ваш браузер не может с нами играть.</canvas>
+            <img src="img/sausage.png" id="sausage" class="game-screen__sausage"/>
+    		<img src="img/1.png" id="platform-img" class="game-screen__platform"/>
+            <div id="cat">
+                <img src="img/cat_left.png" id="cat_left"/>
+                <img src="img/cat_right.png" id="cat_right"/>
+            </div>
+    	</div>
+    </div>
 </fest:template>

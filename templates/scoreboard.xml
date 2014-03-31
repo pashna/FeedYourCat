@@ -1,12 +1,27 @@
 <fest:template xmlns:fest="http://fest.mail.ru"
     context_name="json">
-  <body>
-	     <div class="TitleGame">Great Game</div>
-       <div class="content">
-          <div class="content_Main">Score Board</div>
-          <div class="content-button">
-          	  <p><a href="#" class="js-back">Back</a></p>
-          </div>
-      </div>
-  </body>
+    <div class="game-title">
+        Feed Your Cat!
+        <img src="img/logo.png" width="30" alt="" class="game-title__img" />            
+    </div>
+    <div class="content content_padding_xs">
+        <div class="content__title">Score Board</div>
+        <table class="content__table">
+            <tr>
+                <th>№</th>
+                <th>Name</th>
+                <th>Score</th>
+            </tr>
+            <fest:for iterate="json.scoreboard" index="i">
+                <tr>
+                  <td><fest:value>i + 1</fest:value></td>
+                  <td><fest:value>json.scoreboard[i].get('name')</fest:value></td>
+                    <td><fest:value>json.scoreboard[i].get('score')</fest:value></td>
+                </tr>
+            </fest:for>
+        </table>
+        <div class="toolbar toolbar_padding_xs">
+            <a href="#" class="toolbar__button">Back</a>
+        </div>
+    </div>
 </fest:template>

@@ -1,7 +1,14 @@
 define([
-], function(
+    'backbone',
+    'views/main',
+    'views/scoreboard',
+    'views/game'
+], function(Backbone,
+    mainScreen,
+    scoreboardScreen,
+    gameScreen
 ){
-
+    var currentScreen = "";
     var Router = Backbone.Router.extend({
         routes: {
             'scoreboard': 'scoreboardAction',
@@ -9,13 +16,34 @@ define([
             '*default': 'defaultActions'
         },
         defaultActions: function () {
-            // TODO
+            if (currentScreen === "scoreboard") {
+                scoreboardScreen.hide();
+            }
+            else if (currentScreen === "game") {
+                gameScreen.hide();
+            };
+            mainScreen.show();
+            currentScreen = "main";
         },
         scoreboardAction: function () {
-            // TODO
+            if (currentScreen === "main") {
+                mainScreen.hide();
+            }
+            else if (currentScreen === "game") {
+                gameScreen.hide();
+            };
+            scoreboardScreen.show();
+            currentScreen = "scoreboard";
         },
         gameAction: function () {
-            // TODO
+            if (currentScreen === "main") {
+                mainScreen.hide();
+            }
+            else if (currentScreen === "scoreboard") {
+                scoreboardScreen.hide();
+            };
+            gameScreen.show();
+            currentScreen = "game";
         }
     });
 

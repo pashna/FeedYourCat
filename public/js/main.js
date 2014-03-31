@@ -4,7 +4,8 @@ require.config({
     paths: {
         jquery: "lib/jquery",
         underscore: "lib/underscore",
-        backbone: "lib/backbone"
+        backbone: "lib/backbone",
+        jqueryrotate: "lib/jqueryrotate"
     },
     shim: {
         'backbone': {
@@ -13,6 +14,10 @@ require.config({
         },
         'underscore': {
             exports: '_'
+        },
+        'jqueryrotate': {
+            deps: ['jquery'],
+            exports: 'JQueryRotate'
         }
     }
 });

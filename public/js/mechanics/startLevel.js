@@ -1,28 +1,22 @@
-// Добавлены curXonPlatform, curXonPlatform, isNotInArea()
-
-
 define(['backbone', 
-		'jqueryrotate'
+		'jqueryrotate',
+		'views/GameOver'
 ], function(
 		Backbone,
-		JQueryRotate
+		JQueryRotate,
+		GameOver
 	){
 
 	var platform = Backbone.View.extend ({
 
-		curScore: 0,
-
-		getScore: function() {
-			return this.curScore;
-		},
 
 		game: function(game_level, start_score) {
 			var KEY_LEFT = 37;
 			var KEY_RIGHT = 39;
 			var ROTATE_SPEED = 1;
 			var currentAngle = 0;
-			var START_LEFT = 362.5;
-			var START_TOP = 430;
+			var START_LEFT = 435;
+			var START_TOP = 417;
 			var DELTA_X = 9;
 			var HORISONTAL_FRICTION = 0.025;
 			var FRICTION_COEFFICIENT_BACK = 0.022;
@@ -33,13 +27,17 @@ define(['backbone',
 			var platform = $("#platform-img");
 			var cat_left = $("#cat_left");
 			var cat_right = $("#cat_right");
+			var cat_hungry = $("#cat_hungry");
+			var cat_perfect = $("#cat_perfect");
+			cat_perfect.css("display", "none");
+			cat_hungry.css("display", "none");
 			var sausage = document.getElementById('sausage');
 			var canvas = document.getElementById('draw');
 			var context = canvas.getContext('2d');
 			context.font='40px Baskerville Old Face';
 			context.fillStyle='#FFFFFF';
 			context.clearRect(0,0, 800, 800); 
-			var score_x = 730;
+			var score_x = 930;
 			var score_y = 50;
 			var song = $('#score-sound');
 			var score = start_score.score;
@@ -50,6 +48,7 @@ define(['backbone',
 			var star3 = $("#3_star");
 			var curXonPlatform = 0; // UPDATED
 			var curYonPlatform = 0; // UPDATED
+			$('.win-menu').css('display', 'none');
 
 			function moveLine() { // Переместить Сосиски
 				for (var i = 0; i<game_level.Y.length; i++) {
@@ -64,13 +63,6 @@ define(['backbone',
 				}
 			}
 
-			function hideAllSausage() { // УДАЛИТЬ!!!
-				for (var i = 0; i<game_level.Y.length; i++) {
-					context.clearRect(0,0,10000, 10000);
-					game_level.Y[i]=-1000;
-					game_level.SPEED[i]=0;
-				}
-			}
 
 			function isLevelEnd() { // Проверка на завершения уровня
 				count_of_hide_sausage = 0;
@@ -83,17 +75,18 @@ define(['backbone',
 
 			function doWinner() { // Действия при победе
 					setTimeout("clearInterval("+timerId+")", 10);
-					context.clearRect(0,0, 800, 800); 
+					context.clearRect(0,0, 1000, 800); 
 					start_score.score = score;
 					$('.win-menu').css('display', 'block');
-					context.fillText("Score: "+ score, 320, score_y); 
+//					context.fillText("Score: "+ score, 420, score_y); 
 			}
 
 			function doLoser() { // Действия при поражении
 					setTimeout("clearInterval("+timerId+")", 10);
-					context.clearRect(0,0, 800, 800); 
-					$('.lose-menu').css('display', 'block');
-					context.fillText("Score: "+ score, 320, score_y); 
+					context.clearRect(0,0, 1000, 800); 
+					start_score.score = score;
+					GameOver.show(start_score.score);
+//					context.fillText("Score: "+ score, 420, score_y); 
 			}
 
 			function setPlatformResistance(level) { // Установка сопротивления платформы
@@ -134,8 +127,8 @@ define(['backbone',
 			} 
 
 			function isNotInArea() { // UPDATED Проверка на выход за границы
-				return ((curXonPlatform>800)|| // UPDATED
-					(curXonPlatform<-50)|| // UPDATED
+				return ((curXonPlatform>1110)|| // UPDATED
+					(curXonPlatform<-110)|| // UPDATED
 					(curYonPlatform>650)); // UPDATED
 			} // UPDATED
 			cat_right.css("left", START_LEFT + countLeft(currentX, currentAngle) +'px').css("top",  //UPDATED
@@ -148,13 +141,13 @@ define(['backbone',
 				curXonPlatform = START_LEFT + countLeft(currentX, currentAngle); // UPDATED
 				curYonPlatform = START_TOP + countTop(currentX, currentAngle); // UPDATED
 				for (var i = 0; i<game_level.Y.length; i++) {
-					if ((Math.abs((game_level.X[i]-curXonPlatform)) < 50 )&& // UPDATED
-						(Math.abs(game_level.Y[i]-curYonPlatform) < 50 )) { // UPDATED
+					if ((Math.abs((game_level.X[i]-curXonPlatform)) < 60 )&& // UPDATED
+						(Math.abs(game_level.Y[i]-curYonPlatform) < 40 )) { // UPDATED
 							song.get(0).play();
 							game_level.Y[i]=-5000;
 							game_level.SPEED[i]=0;
 							score++;
-							context.clearRect(0,0, 800, 800); 
+							context.clearRect(0,0, 1000, 800); 
 							context.fillText(score, score_x, score_y); 
 						}
 				}
@@ -178,7 +171,9 @@ define(['backbone',
 						doLoser();
 					}
 				}
-
+				$('#game-screen__back').click(function() {
+                	setTimeout("clearInterval("+timerId+")", 10);
+            	});
 				platform.css('transform','rotate('+currentAngle+'deg)'); // Синхронизация поворота кота и платформы
 				cat_left.css('transform','rotate('+currentAngle+'deg)'); // Синхронизация поворота кота и платформы
 				if (currentAngle > 0) {

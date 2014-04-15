@@ -20,6 +20,14 @@ define([
 			}
 			this.currentScore = new Scores(0);
 			this.scoreAfterLevel = new Scores(0);
+			self = this;
+			$(document).on("newGame", function(event) { //UPDATE
+				self.setNewGameParameters(); //UPDATE
+				self.startGame(); //UPDATE
+			}); //UPDATE
+			$(document).on("setNull", function(event) { //UPDATE
+				self.setNewGameParameters(); //UPDATE
+			}); //UPDATE
         },
 
         setNewGameParameters: function () {

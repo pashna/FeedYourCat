@@ -48,13 +48,19 @@ define(['backbone',
 					case 6: {
 						sausage.X = [100, 250, 350, 500, 700];
 						sausage.Y = [-80, -80, -80, -80, -80];
-						sausage.SPEED = [0.7, 0.3, 0.5, 2, 1.6];
+						sausage.SPEED = [0.7, 1, 0.5, 2, 1.6];
 						break;
 					}
 					case 7: {
 						sausage.X = [100, 250, 350, 400, 700, 300];
 						sausage.Y = [-80, -80, -80, -80, -80, -40];
-						sausage.SPEED = [0.7, 0.7, 0.5, 2, 1.6, 1.4];
+						sausage.SPEED = [0.79, 0.7, 0.5, 2, 1.6, 1.4];
+						break;
+					}
+					case 8: {
+						sausage.X = [100, 250, 320, 400, 700, 500, 600];
+						sausage.Y = [-80, -80, -80, -80, -80, -40, -80];
+						sausage.SPEED = [0.4, 0.4, 0.7, 0.8, 1.6, 1.4, 1.2];
 						break;
 					}
 				}

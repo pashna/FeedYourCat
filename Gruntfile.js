@@ -28,6 +28,13 @@ module.exports = function (grunt) {
                     interrupt: true,
                     livereload: true /* перезагрузить страницу */
                 }
+            },
+            sass: {
+            	files: ['public/css/*.scss'],
+            	tasks: ['sass'],
+            	options: {
+                    atBegin: true
+                }
             }
         },
         express: {
@@ -56,12 +63,24 @@ module.exports = function (grunt) {
                     }
                 }
             }
-        }
-    });
+        },
+
+	    sass: {
+	        css: { /* Подзадача */
+	    		files: [{
+	        	expand: true,
+	        	cwd: 'public/css', /* исходная директория */
+	        	src: 'main.scss', /* имена шаблонов */
+	        	dest: 'public/css', /* результирующая директория */
+	        	ext: '.css'
+	    	}]},
+	    }
+	});
 
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-express-server');
     grunt.loadNpmTasks('grunt-fest');
+    grunt.loadNpmTasks('grunt-contrib-sass');
     grunt.registerTask('default', ['express', 'watch']);
 
 };

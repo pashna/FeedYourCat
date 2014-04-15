@@ -1,0 +1,14 @@
+<fest:template xmlns:fest="http://fest.mail.ru"
+    context_name="json">
+            <div class="lose-menu">
+                <p><div class="lose-menu__text">Your cat is hungry</div></p>
+                <p><div class="lose-menu__text_xs">Scores:<fest:space /> <fest:value>json.score</fest:value></div></p>
+                <p><div class="lose-menu__text_xs">Enter Your Name:</div></p>
+                <form id="lose-menu__form">
+	                <p><input class="lose-menu__input" name="name" type="text"></input></p>
+	                <p><div class="lose-menu__text_none" id="error_message">Sending Error</div></p>
+	                <p><div class="toolbar__button" type="submit" id="submit_score">Submit Score</div></p>
+	            </form>
+	            <p><div class="toolbar__button" id="replay-button_lose">New Game</div></p>
+            </div>
+</fest:template>

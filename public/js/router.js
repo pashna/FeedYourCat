@@ -2,48 +2,35 @@ define([
     'backbone',
     'views/main',
     'views/scoreboard',
-    'views/game'
+    'views/game',
+    'views/ViewManager'
 ], function(Backbone,
     mainScreen,
     scoreboardScreen,
-    gameScreen
+    gameScreen,
+    ViewManager
 ){
     var currentScreen = "";
     var Router = Backbone.Router.extend({
         routes: {
             'scoreboard': 'scoreboardAction',
-            'game': 'gameAction',
-            '*default': 'defaultActions'
+            'game'      : 'gameAction',
+            '*default'  : 'defaultActions'
+        },
+        initialize: function() {
+             this.ViewManager = ViewManager;
         },
         defaultActions: function () {
-            if (currentScreen === "scoreboard") {
-                scoreboardScreen.hide();
-            }
-            else if (currentScreen === "game") {
-                gameScreen.hide();
-            };
+            ViewManager.addView(mainScreen._name , mainScreen );
             mainScreen.show();
-            currentScreen = "main";
         },
         scoreboardAction: function () {
-            if (currentScreen === "main") {
-                mainScreen.hide();
-            }
-            else if (currentScreen === "game") {
-                gameScreen.hide();
-            };
+            ViewManager.addView(scoreboardScreen._name , scoreboardScreen );
             scoreboardScreen.show();
-            currentScreen = "scoreboard";
         },
         gameAction: function () {
-            if (currentScreen === "main") {
-                mainScreen.hide();
-            }
-            else if (currentScreen === "scoreboard") {
-                scoreboardScreen.hide();
-            };
+            ViewManager.addView(gameScreen._name , gameScreen );
             gameScreen.show();
-            currentScreen = "game";
         }
     });
 

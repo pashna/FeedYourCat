@@ -1,29 +1,54 @@
 define([
     'backbone',
     'tmpl/scoreboard',
-    'collections/scores'
+    'collections/scores',
+    'views/ViewManager',
+    'views/scoretable'
 ], function(
     Backbone,
     tmpl,
-    Scoreboard
+    Scoreboard,
+    ViewManager,
+    ScoreTable
 ){
-    var View = Backbone.View.extend({
+  var View = Backbone.View.extend({
+        el: "#scoreboard",
         template: tmpl,
-        scoreboard: Scoreboard,
-        el: $("#page"),
+        _name: "scoreboard",
+        
         initialize: function () {
+            this.render();
+            this.scoreTable = new ScoreTable(); //Только после рендера основной вьюшки можем создать scoreTable
+            this.hide();
         },
         render: function () {
-            this.$el.html(this.template({scoreboard: this.scoreboard.models}));
+            this.$el.html(this.template);
+            self = this;
+            $('#reload_scoreboard').click(function() {
+                self.$el.show();
+            });
+            $(document).on("successLoad", function(event) { //UPDATE
+                $("#reload_scoreboard").hide(); //UPDATE
+            });
+            $(document).on("errorLoad", function(event) { //UPDATE
+                $("#reload_scoreboard").show(); //UPDATE
+            });
         },
         show: function () {
-            this.render();
+            this.$el.show();
+            this.scoreTable.show();
+            console.log("showSCORE");
+            $.event.trigger({
+                type: "show",
+                _name: this._name
+            });
+            
         },
         hide: function () {
-            // TODO
+            this.$el.hide();
+            console.log("hideSCORE");
         }
-
     });
-
     return new View();
+
 });

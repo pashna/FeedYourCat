@@ -6,20 +6,11 @@
     </div>
     <div class="content content_padding_xs">
         <div class="content__title">Score Board</div>
-        <table class="content__table">
-            <tr>
-                <th>№</th>
-                <th>Name</th>
-                <th>Score</th>
-            </tr>
-            <fest:for iterate="json.scoreboard" index="i">
-                <tr>
-                  <td><fest:value>i + 1</fest:value></td>
-                  <td><fest:value>json.scoreboard[i].get('name')</fest:value></td>
-                    <td><fest:value>json.scoreboard[i].get('score')</fest:value></td>
-                </tr>
-            </fest:for>
-        </table>
+        <div class="reload-menu" id="reload_scoreboard">
+            <div class="lose-menu__text">Load error</div>
+            <div class="toolbar__button_xs"><img src="img/reload.png" class="reload__picture"/></div>
+        </div>
+        <div id="scoreTable"></div>
         <div class="toolbar toolbar_padding_xs">
             <a href="#" class="toolbar__button">Back</a>
         </div>

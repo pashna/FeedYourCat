@@ -15,13 +15,14 @@ define([
         initialize: function () {
             this.render();
             this.hide();
+            $('.loading').hide();
         },
         render: function () {
             this.$el.html(this.template);
         },
         show: function () {
             $.event.trigger({type: "show",name: this._name}); 
-           this.$el.show();
+            this.$el.show();
         },
         hide: function () {
             this.$el.hide();

@@ -11,6 +11,7 @@
 		<link rel="stylesheet" type="text/css" href="css/main.css" />
 	</head>
 	<body>
+		<img src="img/indikator.gif" class="loading"/>
 		<div id="page"></div>
 		<div id="main"></div>
     	<div id="scoreboard"></div>

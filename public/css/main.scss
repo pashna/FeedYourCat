@@ -57,6 +57,14 @@ body {
     height: 80px; 
 }
 
+.loading {
+    position: absolute;
+    left: 35%;
+    top: 30%;
+    width: 400px;
+    height: 200px;
+}
+
 
 @import "content";
 @import "toolbar";

@@ -5,7 +5,7 @@
 
 exports.index = function(req, res){
 	res.render('index', { 
-		title: 'Технопарк',
+		title: 'FeedYourCat',
 		development: ('production' != process.env.NODE_ENV)
 	});
 };

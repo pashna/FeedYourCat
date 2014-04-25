@@ -40,6 +40,13 @@ body {
   width: 100px;
   height: 80px; }
 
+.loading {
+  position: absolute;
+  left: 35%;
+  top: 30%;
+  width: 400px;
+  height: 200px; }
+
 .content {
   width: 40%;
   min-width: 20%;

@@ -65,11 +65,21 @@ module.exports = function (grunt) {
             }
         },
 
+        cssmin: {
+            minify: {
+                expand: true,
+                cwd: 'public/css/',
+                src: ['main.css', 'main.min.css'],
+                dest: 'public/css/',
+                ext: '.min.css'
+            }
+        },
+
 	    sass: {
 	        css: {
 	    		files: [{
 	        	expand: true,
-	        	cwd: 'public/css', /* исходная директория */
+	        	cwd: 'public/css/scss', /* исходная директория */
 	        	src: 'main.scss', /* имена шаблонов */
 	        	dest: 'public/css', /* результирующая директория */
 	        	ext: '.css'   
@@ -82,7 +92,7 @@ module.exports = function (grunt) {
                     almond: true,
                     baseUrl: "public/js",
                     mainConfigFile: "public/js/main.js",
-                    name: "main",
+                    name: "main",   
                     optimize: "none",
                     out: "public/js/build/main.js"
                 }
@@ -91,12 +101,12 @@ module.exports = function (grunt) {
         uglify: {
             build: {
                 files: [{
-                    src: ['public/js/build.js'],
+                    src: ['public/js/build/main.js'],
                     dest: 'public/js/build.min.js'
                 }]
             }
         },
-        
+
         concat: {
             build: { /* Подзадача */
                 options: {
@@ -115,10 +125,11 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-requirejs');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-concat');
+    grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.registerTask('default', ['express', 'watch']);
     grunt.registerTask(
         'build', [
-            'fest', 'requirejs:build',
+            'cssmin', 'fest', 'requirejs:build',
             'concat:build', 'uglify:build'
         ]
     );

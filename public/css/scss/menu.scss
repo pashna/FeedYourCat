@@ -1,0 +1,71 @@
+.win-menu {
+
+    display: none;
+    text-align: center;
+    width: 50%;
+    height: 40%;
+    margin: 0px auto;
+    margin-top: 10%;
+    border: 3px solid white;
+    border-radius: 20px;
+    padding-bottom: 5%; 
+
+    &__text {
+        font-size: 25px; 
+
+        &_x1 {
+        font-size: 20px; 
+        };
+    };
+
+    &__star {
+        width: 50px;
+        height: 50px;
+        margin: 2px; 
+    };
+};
+
+.lose-menu {
+    display: block;
+    position: absolute;
+    top: 7%;
+    left: 42%;
+    text-align: center;
+    width: 20%;
+    height: 40%;
+    margin: 0px auto;
+    margin-top: 10%;
+    border: 3px solid white;
+    border-radius: 20px;
+    padding-bottom: 5%;
+    z-index: 99; 
+
+
+    &__text {
+        font-size: 25px; 
+
+        &_xs {
+            font-size: 20px; 
+        }
+
+        &_none {
+            font-size: 20px; 
+            display: none;
+        }
+    }
+
+    &__input {
+    color: white;
+    background: rgba(0, 0, 0, 0.2);
+    height: 20px;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 18px; 
+    }
+}
+
+.reload-menu {
+  display: none;
+  margin-top: 10px;
+  text-align: center; 
+}

@@ -1,0 +1,19 @@
+#cat_left, #cat_right {
+    display: block;
+    position: absolute;
+    bottom: 45px;
+    left: 500px;
+    height: 75px; 
+}
+
+#cat_hungry, #cat_perfect {
+    display: block;
+    position: absolute;
+    bottom: 30px;
+    left: 500px;
+    height: 60px; 
+}
+
+#cat_right, #cat_hungry, #cat_perfect {
+    display: none; 
+}

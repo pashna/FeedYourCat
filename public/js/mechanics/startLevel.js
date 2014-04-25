@@ -70,7 +70,7 @@ define(['backbone',
 					if (game_level.Y[i]<-1000)
 						count_of_hide_sausage++;
 				}
-				return ((count_of_hide_sausage == game_level.Y.length)||(isNotInArea()));
+				return ((count_of_hide_sausage == game_level.Y.length));//||(isNotInArea()));
 			}
 
 			function doWinner() { // Действия при победе

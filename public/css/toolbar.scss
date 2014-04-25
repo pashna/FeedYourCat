@@ -1,0 +1,52 @@
+$button_background: #FFFFFF;
+$button_opacity: 0.2;
+
+.toolbar {
+
+    max-width: 60%;
+    text-align: center;
+    margin: 0px auto;
+
+    &_float_left {
+        float: left; 
+    };
+
+    &_padding_xs {
+        padding-top: 4%; 
+    };
+
+    &__button {
+
+        display: inline-block;
+        color: white;
+        font-size: 22px;
+        text-decoration: none;
+        padding: .5em 2em;
+        outline: none;
+        border: 2px solid;
+        border-radius: 1px;
+        transition: 0.2s;
+        border-radius: 10px;
+        margin: 1%; 
+
+        &:hover, {
+            background: rgba($button_background, $button_opacity); 
+        };
+
+        &:active {
+            background: white; 
+        };
+
+        &_xs {
+            background: rgba($button_background, $button_opacity); 
+
+            &:active {
+                background: white;    
+            };
+
+            &:hover {
+                background: rgba($button_background, $button_opacity);
+            }
+        }
+    }
+}

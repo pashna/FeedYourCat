@@ -6,6 +6,9 @@ require.config({
         underscore: "lib/underscore",
         backbone: "lib/backbone",
         jqueryrotate: "lib/jqueryrotate"
+        Connector: "lib/Connector",
+        FnQuery: "lib/FnQuery",
+        "socket.io": "/socket.io/socket.io"
     },
     shim: {
         'backbone': {
@@ -18,6 +21,8 @@ require.config({
         'jqueryrotate': {
             deps: ['jquery'],
             exports: 'JQueryRotate'
+        "socket.io": {
+            exports: "io"
         }
     }
 });

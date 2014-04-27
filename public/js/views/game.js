@@ -2,12 +2,14 @@ define([
     'backbone',
     'tmpl/game',
     'mechanics',
-    'views/ViewManager'
+    'views/ViewManager',
+    'serverConnection'
 ], function(
     Backbone,
     tmpl,
     Mechanics,
-    ViewManager
+    ViewManager,
+    serverHelper
 ){
 
     var View = Backbone.View.extend({
@@ -16,8 +18,8 @@ define([
         _name: "game",
         mechanics: Mechanics,
         events: {
-        'click #replay-button_win':'repeatLevel',
-        'click #next-level':'nextLevel'
+            'click #replay-button_win':'repeatLevel',
+            'click #next-level':'nextLevel'
         },
 
         nextLevel: function() { 
@@ -33,6 +35,9 @@ define([
         initialize: function () {
             this.render();
             this.hide();
+            $(document).on("startGame", function(event) {
+                Mechanics.startGame();
+            });
         },
 
         render: function () {
@@ -41,8 +46,8 @@ define([
 
         show: function () {
             $.event.trigger({type: "show",_name: this._name}); 
-            Mechanics.startGame();
             this.$el.show();
+            serverHelper.init();
         },  
 
         hide: function () {

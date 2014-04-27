@@ -13301,7 +13301,6 @@ define('views/scoreboard',[
         show: function () {
             this.$el.show();
             this.scoreTable.show();
-            console.log("showSCORE");
             $.event.trigger({
                 type: "show",
                 _name: this._name
@@ -13310,7 +13309,6 @@ define('views/scoreboard',[
         },
         hide: function () {
             this.$el.hide();
-            console.log("hideSCORE");
         }
     });
     return new View();
@@ -13787,7 +13785,7 @@ define('mechanics/startLevel',['backbone',
 					if (game_level.Y[i]<-1000)
 						count_of_hide_sausage++;
 				}
-				return ((count_of_hide_sausage == game_level.Y.length));//||(isNotInArea()));
+				return ((count_of_hide_sausage == game_level.Y.length)||(isNotInArea()));
 			}
 
 			function doWinner() { // Действия при победе
@@ -14167,7 +14165,10 @@ require.config({
         jquery: "lib/jquery",
         underscore: "lib/underscore",
         backbone: "lib/backbone",
-        jqueryrotate: "lib/jqueryrotate"
+        jqueryrotate: "lib/jqueryrotate",
+        Connector: "lib/Connector",
+        FnQuery: "lib/FnQuery",
+        "socket.io": "/socket.io/socket.io"
     },
     shim: {
         'backbone': {
@@ -14180,6 +14181,9 @@ require.config({
         'jqueryrotate': {
             deps: ['jquery'],
             exports: 'JQueryRotate'
+        },
+        "socket.io": {
+            exports: "io"
         }
     }
 });

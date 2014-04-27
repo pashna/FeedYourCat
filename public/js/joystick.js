@@ -28,10 +28,11 @@ define([
 ], function(
     Connector
 ){
-	var message = document.getElementById('message');
-	var input = document.getElementById('token');
+	/*var message = document.getElementById('message');
+	var input = document.getElementById('token');*/
 	var start, init, reconnect;
 
+	console.log("hiy");
 	// Создаем связь с сервером
 	var server = new Connector({
 			server: ['bind'],
@@ -40,8 +41,8 @@ define([
 	);
 
 	// Инициализация
-	init = function(){
-		message.innerHTML = 'ready';
+	init = function() {
+//		message.innerHTML = 'ready';
 		// Если id нет
 		if (!localStorage.getItem('playerguid')){
 			// Ждем ввода токена
@@ -82,23 +83,15 @@ define([
 
 	// Старт игры
 	start = function(guid){
-		console.log('start player');
+
 		// Сохраняем id связки
 		localStorage.setItem('playerguid', guid);
-		message.innerHTML = 'game';
+		alert("STARTJOYSTICK");
 	};
 
 	server.on('reconnect', reconnect);
 
 	init();
-
-	window.addEventListener('deviceorientation', handleOrientation);
-
-	function handleOrientation(event) {
-		currentAngle = Math.floor(event.beta); // In degree in the range [-180,180]
-		if (currentAngle > 70) currentAngle = 70;
-		if (currentAngle < -70) currentAngle = -70;
-	}
 
 	// Обмен сообщениями
 	server.on('message', function(data, answer){
@@ -108,7 +101,9 @@ define([
 
 	window.server = server;
 
+	/*
 	server.send('message', function(answer){
 		console.log(answer);
 	});
+	*/
 });

@@ -49,6 +49,10 @@ define(['backbone',
 			var curXonPlatform = 0; // UPDATED
 			var curYonPlatform = 0; // UPDATED
 			$('.win-menu').css('display', 'none');
+			server.on('message', function(data, answer){
+				currentAngle = data;
+			});
+			
 
 			function moveLine() { // Переместить Сосиски
 				for (var i = 0; i<game_level.Y.length; i++) {
@@ -70,7 +74,7 @@ define(['backbone',
 					if (game_level.Y[i]<-1000)
 						count_of_hide_sausage++;
 				}
-				return ((count_of_hide_sausage == game_level.Y.length));//||(isNotInArea()));
+				return ((count_of_hide_sausage == game_level.Y.length)||(isNotInArea()));
 			}
 
 			function doWinner() { // Действия при победе
@@ -137,10 +141,10 @@ define(['backbone',
 				START_TOP + countTop(currentX, currentAngle) +'px'); // UPDATED
 
 			function setCatMovement() { // Основная функция
-
+//				console.log("server="+window.server);
 				curXonPlatform = START_LEFT + countLeft(currentX, currentAngle); // UPDATED
 				curYonPlatform = START_TOP + countTop(currentX, currentAngle); // UPDATED
-				for (var i = 0; i<game_level.Y.length; i++) {
+				for (var i = 0; i<game_level.Y.leftngth; i++) { // 
 					if ((Math.abs((game_level.X[i]-curXonPlatform)) < 60 )&& // UPDATED
 						(Math.abs(game_level.Y[i]-curYonPlatform) < 40 )) { // UPDATED
 							song.get(0).play();
@@ -154,7 +158,8 @@ define(['backbone',
 
 				moveLine();
 				if (isLevelEnd()) { // Действия при завершении уровня
-					var winner_percent=(score-start_score.score)/game_level.Y.length; // UPDATED
+					console.log("LEVEL END");
+					var winner_percent=(score-start_score.score)/game_level.Y.length;
 					if ((winner_percent>0.75)&&(winner_percent<0.85)) {
 						star1.css('display','none');
 						star2.css('display','none');

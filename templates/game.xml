@@ -1,35 +1,41 @@
 <fest:template xmlns:fest="http://fest.mail.ru"
     context_name="json">
     <audio src="sound/score.wav" id="score-sound"></audio>
-	<div class="toolbar toolbar_float_left">
-        <p><a href="#" class="toolbar__button" id="game-screen__back">Back</a></p> <!--UPDATE!-->
-    </div>
-    <div class="content content_width_xl">
-    	<div class="game-screen">
-            <div class="win-menu" id="win">
-                <p><div class="win-menu__text">Perfect!...</div></p>
-                <p><div class="win-menu__text_x1">...But your cat wanna eat more!</div></p>
-                <p>
-                    <div>
-                        <img src="img/star.png" class="win-menu__star" id="1_star"/>
-                        <img src="img/star.png" class="win-menu__star" id="2_star"/>
-                        <img src="img/star.png" class="win-menu__star" id="3_star"/>
-                    </div>
-                </p>
-                <p>
-                    <div class="toolbar__button" id="next-level">Next Level</div>
-                    <div class="toolbar__button" id="replay-button_win">Replay</div>
-                </p>
-            </div>
-    		<canvas id="draw" width="1000" height="600" class="game-screen__canvas">:( Ваш браузер не может <!--UPDATE!-->
-             с нами играть.</canvas>
-            <img src="img/sausage.png" id="sausage" class="game-screen__sausage"/>
-    		<img src="img/1.png" id="platform-img" class="game-screen__platform"/>
-            <div id="cat">
-                <img src="img/cat_left.png" id="cat_left"/>
-                <img src="img/cat_right.png" id="cat_right"/>
-            </div>
-    	</div>
-        <div id="1ose" class="gameOverScreen"></div>
+    <div class="game-play">
+    	<div class="toolbar toolbar_float_left">
+            <p><a href="#" class="toolbar__button" id="game-screen__back">Back</a></p>
+        </div>
+        <div class="token">
+            <div class="token__text"> Your token to play: </div>
+            <div id="token" class="token__text_x2"></div>
+        </div>
+        <div class="content content_width_xl">
+        	<div class="game-screen">
+                <div class="win-menu" id="win">
+                    <p><div class="win-menu__text">Perfect!...</div></p>
+                    <p><div class="win-menu__text_x1">...But your cat wanna eat more!</div></p>
+                    <p>
+                        <div>
+                            <img src="img/star.png" class="win-menu__star" id="1_star"/>
+                            <img src="img/star.png" class="win-menu__star" id="2_star"/>
+                            <img src="img/star.png" class="win-menu__star" id="3_star"/>
+                        </div>
+                    </p>
+                    <p>
+                        <div class="toolbar__button" id="replay-button_win">Replay</div>
+                        <div class="toolbar__button" id="next-level">Next Level</div>
+                    </p>
+                </div>
+        		<canvas id="draw" width="1000" height="600" class="game-screen__canvas">:( Ваш браузер не может
+                 с нами играть.</canvas>
+                <img src="img/sausage.png" id="sausage" class="game-screen__sausage"/>
+        		<img src="img/1.png" id="platform-img" class="game-screen__platform"/>
+                <div id="cat">
+                    <img src="img/cat_left.png" id="cat_left"/>
+                    <img src="img/cat_right.png" id="cat_right"/>
+                </div>
+        	</div>
+            <div id="1ose" class="gameOverScreen"></div>
+        </div>
     </div>
 </fest:template>

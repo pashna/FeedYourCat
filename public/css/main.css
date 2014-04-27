@@ -12,7 +12,12 @@ body {
   .game-title__img {
     margin-left: 5px; }
 
+.game-play {
+  width: 80%;
+  float: left; }
+
 .game-screen {
+  display: none;
   position: relative;
   border: 3px solid white;
   border-radius: 20px;
@@ -47,6 +52,25 @@ body {
   width: 400px;
   height: 200px; }
 
+.token {
+  width: 30%;
+  height: 40%;
+  border: 3px solid white;
+  border-radius: 20px;
+  position: absolute;
+  top: 25%;
+  left: 35%;
+  margin: 0 auto;
+  padding: 1%; }
+  .token__text {
+    text-align: center;
+    margin-top: 15%;
+    font-size: 30px; }
+    .token__text_x2 {
+      font-size: 55px;
+      margin: 5%;
+      text-align: center; }
+
 .content {
   width: 40%;
   min-width: 20%;
@@ -55,6 +79,7 @@ body {
   .content_padding_xs {
     padding-top: 4%; }
   .content_width_xl {
+    float: left;
     width: 80%; }
   .content__title {
     font-size: 60px;

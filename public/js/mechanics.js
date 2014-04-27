@@ -12,7 +12,7 @@ define([
 	var mechanics = Backbone.View.extend({
 		startLevel: StartLevel,
 		createLevel: CreateLevel,
-		currentLevel: 0,
+		currentLevel: 1,
 
 		initialize: function () {
 			function Scores(_sc) {

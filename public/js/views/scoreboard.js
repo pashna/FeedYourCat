@@ -37,7 +37,6 @@ define([
         show: function () {
             this.$el.show();
             this.scoreTable.show();
-            console.log("showSCORE");
             $.event.trigger({
                 type: "show",
                 _name: this._name
@@ -46,7 +45,6 @@ define([
         },
         hide: function () {
             this.$el.hide();
-            console.log("hideSCORE");
         }
     });
     return new View();

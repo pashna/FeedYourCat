@@ -28,9 +28,11 @@ define([
 ], function(
     Connector
 ){
-	var message = document.getElementById('message');
-	var input = document.getElementById('token');
+	/*var message = document.getElementById('message');*/
+	var input = document.getElementById('input-token');
 	var start, init, reconnect;
+	var token_screen = document.getElementById('token-screen');
+	var joystick = document.getElementById('joystick');
 
 	// Создаем связь с сервером
 	var server = new Connector({
@@ -40,15 +42,15 @@ define([
 	);
 
 	// Инициализация
-	init = function(){
-		message.innerHTML = 'ready';
+	init = function() {
+//		message.innerHTML = 'ready';
 		// Если id нет
 		if (!localStorage.getItem('playerguid')){
 			// Ждем ввода токена
 			input.parentNode.addEventListener('submit', function(e){
 				e.preventDefault();
-
 				// И отправляем его на сервер
+				console.log("inputlavue="+input.value);
 				server.bind({token: input.value}, function(data){
 					if (data.status == 'success'){ //  В случае успеха
 						// Стартуем джостик
@@ -80,12 +82,18 @@ define([
 		});
 	};
 
+
 	// Старт игры
 	start = function(guid){
-		console.log('start player');
-		// Сохраняем id связки
 		localStorage.setItem('playerguid', guid);
-		message.innerHTML = 'game';
+		console.log("12345");
+		console.log("token\n"+token_screen);
+		console.log("joy\n"+joystick);
+		token_screen.style.display = "none";
+		joystick.style.display = "block";
+		on('my other event', function (data) {
+    		console.log(data);
+  		});
 	};
 
 	server.on('reconnect', reconnect);
@@ -94,11 +102,17 @@ define([
 
 	window.addEventListener('deviceorientation', handleOrientation);
 
+
+
 	function handleOrientation(event) {
 		currentAngle = Math.floor(event.beta); // In degree in the range [-180,180]
 		if (currentAngle > 70) currentAngle = 70;
 		if (currentAngle < -70) currentAngle = -70;
+		server.send(currentAngle, function(answer){
+			console.log(answer);
+		});
 	}
+
 
 	// Обмен сообщениями
 	server.on('message', function(data, answer){
@@ -108,7 +122,10 @@ define([
 
 	window.server = server;
 
+	/*
 	server.send('message', function(answer){
 		console.log(answer);
 	});
+	*/
 });
+

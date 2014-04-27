@@ -16,7 +16,7 @@ exports.index = function(req, res){
 
 exports.joystick = function(req, res){
 	res.render('joystick', {
-		title: 'Технопарк',
+		title: 'FeedYourCat',
 		development: ('production' != process.env.NODE_ENV)
 	});
 };

@@ -69,7 +69,7 @@ module.exports = function (grunt) {
             minify: {
                 expand: true,
                 cwd: 'public/css/',
-                src: ['main.css', 'main.min.css'],
+                src: ['*.css', '!*.min.css'],
                 dest: 'public/css/',
                 ext: '.min.css'
             }
@@ -79,11 +79,18 @@ module.exports = function (grunt) {
 	        css: {
 	    		files: [{
 	        	expand: true,
-	        	cwd: 'public/css/scss', /* исходная директория */
+	        	cwd: 'public/css/scss/pc', /* исходная директория */
 	        	src: 'main.scss', /* имена шаблонов */
 	        	dest: 'public/css', /* результирующая директория */
 	        	ext: '.css'   
-	    	}]},
+	    	}, {
+                expand: true,
+                cwd: 'public/css/scss/',
+                src: 'main_joystick.scss',
+                dest: 'public/css',
+                ext: '.css'                
+                }]
+            },
 	    },
 
         requirejs: {

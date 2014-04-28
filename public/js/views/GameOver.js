@@ -25,7 +25,12 @@ define([
         },
 
         initialize: function () {
-            //TODO
+            var self = this;
+            server.on('message', function(data, answer){
+                if (data.type == "newGame") {
+                    self.newGame();
+                }
+            });
         },
 
         render: function (score) {

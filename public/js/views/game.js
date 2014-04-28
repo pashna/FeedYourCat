@@ -38,6 +38,25 @@ define([
             $(document).on("startGame", function(event) {
                 Mechanics.startGame();
             });
+            var self = this;
+            server.on('message', function(data, answer){
+                if (data.type == 'click') {
+                    switch(data.value) {
+                        case 'replay':
+                            self.repeatLevel();
+                            break
+                        case 'next':
+                            self.nextLevel();
+                            break
+                    }
+                    server.send(({
+                        type: "hide_iconc",
+                        }), function(answer){
+                            console.log(answer);
+                        }
+                    );
+                }
+            });
         },
 
         render: function () {

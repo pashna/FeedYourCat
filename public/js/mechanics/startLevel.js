@@ -49,8 +49,15 @@ define(['backbone',
 			var curXonPlatform = 0; // UPDATED
 			var curYonPlatform = 0; // UPDATED
 			$('.win-menu').css('display', 'none');
+			window.pause = false;
+			window.sound = true;
 			server.on('message', function(data, answer){
-				currentAngle = data;
+				console.log("data="+data.type+"  "+data.value);
+				switch(data.type) {
+					case "angle": currentAngle = data.value; break;
+					case "pause": window.pause = data.value; console.log("pause="+window.pause); break;
+					case "sound": window.sound = data.value; console.log("sound="+window.sound); break;
+				}
 			});
 			
 
@@ -67,6 +74,14 @@ define(['backbone',
 				}
 			}
 
+			function sendShowIconC() {
+				server.send(({
+            		type: "show_iconc"
+            	}), function(answer){
+                		console.log(answer);
+            		}
+        		);
+			}
 
 			function isLevelEnd() { // Проверка на завершения уровня
 				count_of_hide_sausage = 0;
@@ -78,18 +93,27 @@ define(['backbone',
 			}
 
 			function doWinner() { // Действия при победе
-					setTimeout("clearInterval("+timerId+")", 10);
-					context.clearRect(0,0, 1000, 800); 
-					start_score.score = score;
-					$('.win-menu').css('display', 'block');
+				setTimeout("clearInterval("+timerId+")", 10);
+				context.clearRect(0,0, 1000, 800); 
+				start_score.score = score;
+				$('.win-menu').css('display', 'block');
+				sendShowIconC();
 //					context.fillText("Score: "+ score, 420, score_y); 
 			}
 
 			function doLoser() { // Действия при поражении
-					setTimeout("clearInterval("+timerId+")", 10);
-					context.clearRect(0,0, 1000, 800); 
-					start_score.score = score;
-					GameOver.show(start_score.score);
+				setTimeout("clearInterval("+timerId+")", 10);
+				server.send(({
+            		type: "show_newGame"
+            	}), function(answer){
+                		console.log(answer);
+            		}
+        		);
+
+				context.clearRect(0,0, 1000, 800); 
+				start_score.score = score;
+				GameOver.show(start_score.score);
+
 //					context.fillText("Score: "+ score, 420, score_y); 
 			}
 
@@ -142,93 +166,100 @@ define(['backbone',
 
 			function setCatMovement() { // Основная функция
 //				console.log("server="+window.server);
-				curXonPlatform = START_LEFT + countLeft(currentX, currentAngle); // UPDATED
-				curYonPlatform = START_TOP + countTop(currentX, currentAngle); // UPDATED
-				for (var i = 0; i<game_level.Y.leftngth; i++) { // 
-					if ((Math.abs((game_level.X[i]-curXonPlatform)) < 60 )&& // UPDATED
-						(Math.abs(game_level.Y[i]-curYonPlatform) < 40 )) { // UPDATED
-							song.get(0).play();
-							game_level.Y[i]=-5000;
-							game_level.SPEED[i]=0;
-							score++;
-							context.clearRect(0,0, 1000, 800); 
-							context.fillText(score, score_x, score_y); 
+				if (!window.pause) {
+					curXonPlatform = START_LEFT + countLeft(currentX, currentAngle); // UPDATED
+					curYonPlatform = START_TOP + countTop(currentX, currentAngle); // UPDATED
+					for (var i = 0; i<game_level.Y.length; i++) { // 
+						if ((Math.abs((game_level.X[i]-curXonPlatform)) < 60 )&& // UPDATED
+							(Math.abs(game_level.Y[i]-curYonPlatform) < 40 )) { // UPDATED
+							console.log("sound="+window.sound);
+								if (window.sound)
+									song.get(0).play();
+								game_level.Y[i]=-5000;
+								game_level.SPEED[i]=0;
+								score++;
+								context.clearRect(0,0, 1000, 800); 
+								context.fillText(score, score_x, score_y); 
+							}
+					}
+					moveLine();
+					if (isLevelEnd()) { // Действия при завершении уровня
+						console.log("LEVEL END");
+						var winner_percent=(score-start_score.score)/game_level.Y.length;
+						if ((winner_percent>0.75)&&(winner_percent<0.85)) {
+							star1.css('display','none');
+							star2.css('display','none');
+							doWinner();
 						}
-				}
-
-				moveLine();
-				if (isLevelEnd()) { // Действия при завершении уровня
-					console.log("LEVEL END");
-					var winner_percent=(score-start_score.score)/game_level.Y.length;
-					if ((winner_percent>0.75)&&(winner_percent<0.85)) {
-						star1.css('display','none');
-						star2.css('display','none');
-						doWinner();
+						if ((winner_percent>0.85)&&(winner_percent<0.95)) {
+							star1.css('display','none');
+							doWinner();
+						}
+						if ((winner_percent>0.95)) {
+							doWinner();
+						}
+						if (winner_percent<=0.75) { 
+							doLoser();
+						}
 					}
-					if ((winner_percent>0.85)&&(winner_percent<0.95)) {
-						star1.css('display','none');
-						doWinner();
-					}
-					if ((winner_percent>0.95)) {
-						doWinner();
-					}
-					if (winner_percent<=0.75) { 
-						doLoser();
-					}
-				}
-				$('#game-screen__back').click(function() {
-                	setTimeout("clearInterval("+timerId+")", 10);
-            	});
-				platform.css('transform','rotate('+currentAngle+'deg)'); // Синхронизация поворота кота и платформы
-				cat_left.css('transform','rotate('+currentAngle+'deg)'); // Синхронизация поворота кота и платформы
-				if (currentAngle > 0) {
-					if (speed > 0) speed+=currentAngle*FRICTION_COEFFICIENT;
-						else speed+=currentAngle*FRICTION_COEFFICIENT_BACK;
-					currentX += speed;
-					side = 'right';
-					cat_right.css("display", "none");
-					cat_left.css("display", "block");
-					cat_left.css("left", START_LEFT + countLeft(currentX, currentAngle) +'px').css("top", 
-						START_TOP + countTop(currentX, currentAngle) +'px');
-				}
-				else {
-					if (currentAngle < 0) {
-						if (speed < 0) speed += currentAngle*FRICTION_COEFFICIENT;
-							else speed += currentAngle*FRICTION_COEFFICIENT_BACK;
+					$('#game-screen__back').click(function() {
+	                	setTimeout("clearInterval("+timerId+")", 10);
+	            	});
+					platform.css('transform','rotate('+currentAngle+'deg)'); // Синхронизация поворота кота и платформы
+					cat_left.css('transform','rotate('+currentAngle+'deg)'); // Синхронизация поворота кота и платформы
+					if (currentAngle > 0) {
+						if (speed > 0) speed+=currentAngle*FRICTION_COEFFICIENT;
+							else speed+=currentAngle*FRICTION_COEFFICIENT_BACK;
 						currentX += speed;
-						side = 'left';
-						cat_left.css("display", "none");
-						cat_right.css("display", "block");
-						cat_right.css("left", START_LEFT + countLeft(currentX, currentAngle) +'px').css("top", 
-						START_TOP + countTop(currentX, currentAngle) +'px');
+						side = 'right';
+						cat_right.css("display", "none");
+						cat_left.css("display", "block");
+						cat_left.css("left", START_LEFT + countLeft(currentX, currentAngle) +'px').css("top", 
+							START_TOP + countTop(currentX, currentAngle) +'px');
 					}
 					else {
-						switch (side) { // При нуле если едет вправо и если едет влево (тормоз)
-							case 'right': {
-								if (speed > 0) speed -= HORISONTAL_FRICTION;
-								if ((speed < 0)&&(speed > (-HORISONTAL_FRICTION-0.01) )) speed = 0;
-								if (speed < (-HORISONTAL_FRICTION-0.01)) speed += HORISONTAL_FRICTION;
-								currentX += speed;
-								cat_left.css("left", START_LEFT + countLeft(currentX, currentAngle) +'px').css("top", 
-									START_TOP + countTop(currentX, currentAngle) +'px');
-								break;
-
-							}
-							case 'left': {
-								if (speed < 0) speed += HORISONTAL_FRICTION;
-								if ((speed > 0)&&( speed < (HORISONTAL_FRICTION+0.01) ))
-									speed=0;
-								if (speed > (HORISONTAL_FRICTION+0.01)) speed -= HORISONTAL_FRICTION;
-								currentX += speed;
-								cat_right.css("left", START_LEFT + countLeft(currentX, currentAngle) +'px').css("top", 
-									START_TOP + countTop(currentX, currentAngle) +'px');
-								break;
-							}
+						if (currentAngle < 0) {
+							if (speed < 0) speed += currentAngle*FRICTION_COEFFICIENT;
+								else speed += currentAngle*FRICTION_COEFFICIENT_BACK;
+							currentX += speed;
+							side = 'left';
+							cat_left.css("display", "none");
+							cat_right.css("display", "block");
+							cat_right.css("left", START_LEFT + countLeft(currentX, currentAngle) +'px').css("top", 
+							START_TOP + countTop(currentX, currentAngle) +'px');
 						}
+						else {
+							switch (side) { // При нуле если едет вправо и если едет влево (тормоз)
+								case 'right': {
+									if (speed > 0) speed -= HORISONTAL_FRICTION;
+									if ((speed < 0)&&(speed > (-HORISONTAL_FRICTION-0.01) )) speed = 0;
+									if (speed < (-HORISONTAL_FRICTION-0.01)) speed += HORISONTAL_FRICTION;
+									currentX += speed;
+									cat_left.css("left", START_LEFT + countLeft(currentX, currentAngle) +'px').css("top", 
+										START_TOP + countTop(currentX, currentAngle) +'px');
+									break;
 
+								}
+								case 'left': {
+									if (speed < 0) speed += HORISONTAL_FRICTION;
+									if ((speed > 0)&&( speed < (HORISONTAL_FRICTION+0.01) ))
+										speed=0;
+									if (speed > (HORISONTAL_FRICTION+0.01)) speed -= HORISONTAL_FRICTION;
+									currentX += speed;
+									cat_right.css("left", START_LEFT + countLeft(currentX, currentAngle) +'px').css("top", 
+										START_TOP + countTop(currentX, currentAngle) +'px');
+									break;
+								}
+							}
+
+						}
 					}
 				}
-			}
+				else {
+					console.log(window.pause);
+					return 0;	
+				}
+			} 
 			var timerId = setInterval(setCatMovement, 25);
 		},
 	});

@@ -33,18 +33,19 @@
                 </form>
             </div>
         </div>
-        <div class="joy" id="joystick">
-            <div class="content">
-                <div class="content-cat-block">
-                    <img src="img/mobile_cat.jpeg" class="content-cat-block__cat"/>
+        <div class="joy">
+            <div class="content" id="joystick">
+                <div class="content-cat-block" id="cat_block">
+                    <img src="img/mobile_cat.jpeg" class="content-cat-block__cat" id="mobile_cat"/>
                 </div>
             </div>
             <div class="toolbar">
-                <div class="toolbar-icon">
-                    <img src="img/pause.png" class="toolbar-icon__element"/>
-                    <img src="img/play.png" class="toolbar-icon__element_none"/>
-                    <img src="img/sound_on.png" class="toolbar-icon__element"/>
-                    <img src="img/sound_on.png" class="toolbar-icon__element_none"/>
+                <div class="toolbar-iconl" id="newGame_btn">
+                    <button class="toolbar-iconc__btn" id="newBtn">New Games</button>
+                </div>
+                <div class="toolbar-iconc" id="iconc">
+                    <img src="img/replay.png" class="toolbar-iconc__element" id="replay_btn"/>
+                    <img src="img/next.png" class="toolbar-iconc__element" id="next_btn"/>
                 </div>
             </div>
         </div>

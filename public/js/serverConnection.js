@@ -31,7 +31,6 @@ define([
             if (!localStorage.getItem('consoleguid')){
                 // Получаем токен
                 this.server.getToken(function(token){
-                    console.log("token = "+ token);
                     $('#token').html(token);
                 //message.innerHTML = 'token: ' + token;
                 });

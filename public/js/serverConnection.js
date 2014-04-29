@@ -60,14 +60,11 @@ define([
 
         // Старт игры
         start: function(guid){
-            console.log('start console');
             localStorage.setItem('consoleguid', guid);
             $(".token").hide();
             $(".game-screen").show();
-            console.log($("#gameplay"));
             $.event.trigger({type: "startGame"}); 
                 server.on('message', function(data, answer){
-                    console.log('message', data);
                     answer('answer');
                 });
         }

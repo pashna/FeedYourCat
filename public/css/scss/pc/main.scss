@@ -36,6 +36,7 @@ body {
     margin: 0 auto;
     height: 550px;
     overflow: hidden;
+    z-index:0;
 
     &__platform {
         display: block;
@@ -61,6 +62,25 @@ body {
     width: 100px;
     height: 80px; 
 }
+
+.warning {
+    display: none;
+    height: 10%;
+    width: 50%;
+    border: 2px solid;
+    border-radius: 10px;
+    margin:auto;
+    text-align: center;
+    position: relative;
+    top: 10px;
+    left: 150px;
+    z-index: 300;
+
+    &__massage {
+        font-size: 150%;
+    }
+}
+
 
 .loading {
     position: absolute;

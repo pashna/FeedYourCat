@@ -52,11 +52,10 @@ define(['backbone',
 			window.pause = false;
 			window.sound = true;
 			server.on('message', function(data, answer){
-				console.log("data="+data.type+"  "+data.value);
 				switch(data.type) {
 					case "angle": currentAngle = data.value; break;
-					case "pause": window.pause = data.value; console.log("pause="+window.pause); break;
-					case "sound": window.sound = data.value; console.log("sound="+window.sound); break;
+					case "pause": window.pause = data.value; break;
+					case "sound": window.sound = data.value; break;
 				}
 			});
 			

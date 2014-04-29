@@ -5,6 +5,9 @@
     	<div class="toolbar toolbar_float_left">
             <p><a href="#" class="toolbar__button" id="game-screen__back">Back</a></p>
         </div>
+        <div class="warning">
+            <div class="warning__massage" id="warning">Be careful! You are in reverse control!</div>
+        </div>
         <div class="token">
             <div class="token__text"> Your token to play: </div>
             <div id="token" class="token__text_x2"></div>

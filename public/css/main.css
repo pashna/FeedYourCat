@@ -25,7 +25,8 @@ body {
   min-width: 150px;
   margin: 0 auto;
   height: 550px;
-  overflow: hidden; }
+  overflow: hidden;
+  z-index: 0; }
   .game-screen__platform {
     display: block;
     position: absolute;
@@ -44,6 +45,21 @@ body {
 .reload__picture {
   width: 100px;
   height: 80px; }
+
+.warning {
+  display: none;
+  height: 10%;
+  width: 50%;
+  border: 2px solid;
+  border-radius: 10px;
+  margin: auto;
+  text-align: center;
+  position: relative;
+  top: 10px;
+  left: 150px;
+  z-index: 300; }
+  .warning__massage {
+    font-size: 150%; }
 
 .loading {
   position: absolute;

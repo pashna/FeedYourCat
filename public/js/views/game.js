@@ -23,13 +23,24 @@ define([
         },
 
         nextLevel: function() { 
-        // UPDATE
             this.mechanics.levelUp();
             this.mechanics.startGame();
+            server.send(({
+            type: "hide_iconc",
+            }), function(answer){
+                console.log(answer);
+                }
+            );
         },
 
         repeatLevel: function() {
             this.mechanics.startGame();
+            server.send(({
+                type: "hide_iconc",
+                }), function(answer){
+                    console.log(answer);
+                    }
+            );
         },
 
         initialize: function () {
@@ -55,6 +66,17 @@ define([
                             console.log(answer);
                         }
                     );
+                }
+            });
+            self = this;
+            server.on('message', function(data, answer) {
+                if (data.type == "orien") {
+                    //alert("davavalue="+data.value);
+                    if (data.value == 1) {
+                        $(".warning").css("display", "block");
+                    } else {
+                        $(".warning").css("display", "none");
+                    }
                 }
             });
         },

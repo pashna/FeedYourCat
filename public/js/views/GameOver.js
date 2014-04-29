@@ -22,6 +22,12 @@ define([
         newGame: function() {
             this.$el.hide();
             $.event.trigger({type: "newGame"}); //UPDATE
+            server.send(({
+            type: "hide_newGame",
+            }), function(answer){
+                console.log(answer);
+            }
+            );
         },
 
         initialize: function () {
@@ -51,6 +57,12 @@ define([
         },
 
         submit: function() {
+            server.send(({
+                type: "hide_newGame",
+                }), function(answer){
+                    console.log(answer);
+                }
+            );
             var name = $('input[name="name"]').val();
             var score = this.score;
 	        var input_name = $('input[name="name"]');

@@ -27,7 +27,7 @@
         <div class="joystick-screen" id="token-screen">
             <div class="joystick-screen-token">
                 <div class="joystick-screen-token__text">Enter token:</div>
-                <form>
+                <form class="joystick-screen-token__form">
                     <input class="joystick-screen-token__input" id="input-token"></input>
                     <button class="joystick-screen-token__btn" id="connect" type="submit">Connect</button>
                 </form>
@@ -35,8 +35,8 @@
         </div>
         <div class="joy">
             <div class="content" id="joystick">
-                <div class="content-cat-block" id="cat_block">
-                    <img src="img/mobile_cat.jpeg" class="content-cat-block__cat" id="mobile_cat"/>
+                <div class="content-block" id="cat_block">
+                    <img src="img/mobile_cat.jpeg" class="content-block__cat" id="mobile_cat"/>
                 </div>
             </div>
             <div class="toolbar">

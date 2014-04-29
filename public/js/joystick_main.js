@@ -40,6 +40,7 @@ define([
     var iconc = $('#iconc');
     var cat_block = $('#cat_block');
     var mobile_cat = $('#mobile_cat');
+    var errorForm = $('#errorForm');
     var width_of_block;
     var replay = document.getElementById('replay_btn');
     var next = document.getElementById('next_btn');
@@ -104,6 +105,7 @@ define([
 
     server.on('reconnect', reconnect);
 
+
     init();
 
     window.addEventListener('deviceorientation', handleOrientation);
@@ -111,6 +113,16 @@ define([
     next.addEventListener('click', handleClickNext);
     next.addEventListener('click', handleClickNext);
     newButton.addEventListener('click', handleClickNewBtn);
+
+
+    function handleOrientationChange(event) {
+        server.send(({
+            type: "orientationchange",
+            }), function(answer){
+                console.log(answer);
+            }
+        );
+    }
 
     function handleClickReplay(event) {
         server.send(({
@@ -132,7 +144,36 @@ define([
         );
     }
 
+    var currentOrient;
     function handleOrientation(event) {
+       /* if ((event.beta>90)||(event.beta<-90)) {
+            if (currentOrient != 1) {
+                currentOrient = 1;
+                server.send(({
+                    type: "orien",
+                    value: "1"
+                    }), function(answer){
+                        console.log(answer);
+                    }
+                );
+            }
+        }
+
+        if ((event.beta<90)||(event.beta>-90)) {
+            if (currentOrient != 0) {
+                currentOrient = 0;
+                server.send(({
+                    type: "orien",
+                    value: "0"
+                    }), function(answer){
+                        console.log(answer);
+                    }
+                );
+            }
+        }
+        */
+
+        alert(event.beta);
         currentAngle = Math.floor(event.beta);
         if (currentAngle > 75) currentAngle = 75;
         if (currentAngle < -75) currentAngle = -75;
@@ -158,9 +199,7 @@ define([
     }
 
     function setCat(angle){
-        console.log("angle="+angle+" width_of_block="+width_of_block);
         var x = (width_of_block/(2*75))*angle;
-        console.log("x="+x);
         mobile_cat.css("left", x+'px');
     }
 
@@ -175,11 +214,10 @@ define([
         if (data.type == "show_newGame") {
             newGameBtn.show();
         }
+
+        if (data.type == "hide_newGame") {
+            newGameBtn.hide();
+        }
     });
-    /*
-    server.send('message', function(answer){
-        console.log(answer);
-    });
-    */
 });
 
